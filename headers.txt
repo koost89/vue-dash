@@ -1,0 +1,11 @@
+HTTP/1.1 401 Unauthorized
+Date: Sat, 17 Nov 2018 10:37:00 GMT
+Server: Apache/2.4.29 (Win64) OpenSSL/1.1.0g PHP/7.2.2
+X-Powered-By: PHP/7.2.2
+www-authenticate: 
+Cache-Control: no-cache, private
+X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 59
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
