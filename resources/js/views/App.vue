@@ -5,6 +5,7 @@
         <p>
             <router-link :to="{ name: 'home' }">Home</router-link> |
             <router-link :to="{ name: 'test' }">Test</router-link> |
+            <router-link v-if="isLoggedIn" :to="{ name: 'customers' }">Klanten</router-link> |
             <router-link v-if="!isLoggedIn" :to="{ name: 'login' }">Login</router-link>
             <span v-if="isLoggedIn"><a @click="logout">Logout</a></span>
 
@@ -56,18 +57,26 @@
                 });
             }
         },
+        beforeCreate(){
+            window.Echo = new Echo({
+                broadcaster: 'socket.io',
+                host: window.location.hostname +':6001',
+                auth: {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    },
+                },
+            });
+        },
         created: function () {
 
             // Add echo to the app
-            window.echo = new Echo({
-                broadcaster: 'socket.io',
-                host: window.location.hostname +':6001',
-            });
+            window.Echo.private('billing').listenForWhisper('test', (e) => console.log('YAYs'));
 
             if(this.isLoggedIn){
-                echo.private('billing');
+
             } else {
-                echo.leave('billing');
+                window.Echo.leave('billing');
             }
             // Axios interceptor for refreshing oauth tokens
             this.$http.interceptors.request.use((config) => {

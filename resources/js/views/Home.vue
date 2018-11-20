@@ -10,7 +10,7 @@
     export default {
         created() {
             this.$http
-                .get('/user')
+                .get('api/user')
                 .then((response) => {
                     this.$store.dispatch('user/fetchedUser', response.data)
                 })
