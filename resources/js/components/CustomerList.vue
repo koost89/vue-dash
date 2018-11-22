@@ -9,8 +9,8 @@
         <modal v-if="showAddCustomerModal" @close="showAddCustomerModal = false">
             <h3 slot="header">Create customer</h3>
             <div slot="body">
-                <label for="edit_customer_name"> Customer name </label>
-                <input type="text" id="edit_customer_name" name="edit_customer_name" v-model="customerName">
+                <label for="add_customer_name"> Customer name </label>
+                <input type="text" id="add_customer_name" name="add_customer_name" v-model="customerName">
             </div>
             <div slot="footer">
                 <button @click="showAddCustomerModal = false">Back</button>
@@ -48,6 +48,7 @@
 
     import echo from '../mixins/echo'
     import Modal from '../atoms/Modal.vue'
+
     export default {
         name: 'CustomerList',
         components: {
@@ -66,11 +67,12 @@
             };
         },
         created() {
+
             this.fetchData();
         },
+        mixins: [echo],
         methods: {
             fetchData() {
-              this.error = this.customers = null;
                 this.$http
                     .get('/api/customers')
                     .then(response => {
@@ -78,27 +80,24 @@
                     });
             },
             triggerWhisper() {
-                console.log('before')
-
                 let channel = Echo.private('billing');
                 setTimeout(function() {
                     channel.whisper('test', {
                         user: 'a'
                     });
                 }, 300);
-                console.log('after')
-
             },
+
             addCustomer() {
                 this.$http
                     .post('/api/customers/create', {name: this.customerName})
-                    .then(response => {})
+                    .then(response => {
+                        this.showAddCustomerModal = false;
+                    })
                     .catch(errors => console.log(errors.errors))
-                this.showAddCustomerModal = false;
             },
 
             deleteCustomer(customer_id) {
-                console.log(customer_id);
                 this.$http
                     .post('/api/customers/delete', {customer_id: customer_id})
                     .then(response => {})
@@ -125,7 +124,8 @@
 
             getEventHandlers() {
                 return {
-                    'Customer\\CustomerAdded': ressssponse => {
+                    'Customer\\CustomerAdded': response => {
+                        console.log(response);
                         this.customers.push(response.customer);
                     },
                     'Customer\\CustomerDeleted': response => {

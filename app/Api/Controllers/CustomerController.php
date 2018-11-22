@@ -62,8 +62,15 @@ class CustomerController extends Controller
         $customer->name = $request->name;
         $customer->save();
 
-        event(new customerUpdated($customer));
+        event(new CustomerUpdated($customer->load('projects')));
 
         return $customer;
+    }
+    public function search(Request $request)
+    {
+        if ($request->search_query){
+            $customers = Customer::where('name', 'like' ,'%' . $request->search_query . '%')->get();
+        }
+        return $customers;
     }
 }

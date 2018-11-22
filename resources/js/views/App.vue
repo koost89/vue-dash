@@ -1,17 +1,17 @@
 <template>
     <div>
         <h1>Vue Router Demo App</h1>
-
         <p>
             <router-link :to="{ name: 'home' }">Home</router-link> |
-            <router-link :to="{ name: 'test' }">Test</router-link> |
-            <router-link v-if="isLoggedIn" :to="{ name: 'customers' }">Klanten</router-link> |
+            <router-link v-if="isLoggedIn" :to="{ name: 'billings' }">Facturatie | </router-link>
+            <router-link v-if="isLoggedIn" :to="{ name: 'projects' }">Projecten | </router-link>
+            <router-link v-if="isLoggedIn" :to="{ name: 'customers' }">Klanten | </router-link>
             <router-link v-if="!isLoggedIn" :to="{ name: 'login' }">Login</router-link>
             <span v-if="isLoggedIn"><a @click="logout">Logout</a></span>
 
         </p>
 
-        <div class="container">
+        <div class="test">
             <router-view></router-view>
         </div>
     </div>
@@ -86,12 +86,11 @@
                     let refreshTime = parseInt(tokenTime - (10*1000), 10);
 
                     let tokenIsExpiringSoon = currentTime > refreshTime
-                    console.log('token expiring soon: ' + tokenIsExpiringSoon )
 
                     if (tokenIsExpiringSoon && this.authStatus !== 'loading') {
+                    console.log('token expiring soon getting a new one brb');
                         this.attemptRefresh()
                             .then(() => {
-                                console.log('returning resolveded config')
                                 config.headers['Authorization'] = 'Bearer ' + this.token
                                 resolve(config);
                             })
@@ -102,7 +101,6 @@
                     }
                     else {
                         if(this.authStatus !== 'loading') {
-                            console.log('returning original config')
                             config.headers['Authorization'] = 'Bearer ' + this.token
                             resolve(config);
                         }
