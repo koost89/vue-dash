@@ -7,7 +7,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-abstract class BillingEvents implements ShouldBroadcast
+abstract class DashboardEvents implements ShouldBroadcast
 {
 
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -18,6 +18,6 @@ abstract class BillingEvents implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('billing');
+        return new Channel('dashboard');
     }
 }

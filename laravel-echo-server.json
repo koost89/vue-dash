@@ -1,5 +1,5 @@
 {
-	"authHost": "http://geldhark.kevin",
+	"authHost": "http://vue-dash.kevin",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [],
 	"database": "redis",

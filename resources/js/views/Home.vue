@@ -9,12 +9,6 @@
 
     export default {
         created() {
-            this.$http
-                .get('api/user')
-                .then((response) => {
-                    this.$store.dispatch('user/fetchedUser', response.data)
-                })
-                .catch(error => {console.log('ERROR FROM HOME' +  error)});
         },
         data() {
             return {

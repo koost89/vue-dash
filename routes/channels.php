@@ -11,8 +11,12 @@
 |
 */
 
-use App\Api\Models\User;
+use App\User;
 
-Broadcast::channel('billing', function (User $user) {
-    return true;
+Broadcast::channel('dashboard', function() {
+//    $customer = Customer::find($customer_id);
+//    if ($customer){
+        return true;
+//    }
+//    return false;
 });
