@@ -1,22 +1,24 @@
 <?php
-namespace App\Api\Events\Project;
+namespace App\Events\Weather;
 
-use App\Api\Events\BillingEvents;
+use App\Events\DashboardEvents;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
-class ProjectAdded extends BillingEvents
+class WeatherFetched extends DashboardEvents
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $project;
+    public $weather;
+
     /**
      * Create a new event instance.
-     * @param $project
+     * @param $weather
+     * @internal param $project
      */
-    public function __construct($project)
+    public function __construct($weather)
     {
-        $this->project = $project;
+        $this->weather = $weather;
     }
 }

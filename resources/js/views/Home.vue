@@ -1,18 +1,20 @@
 <template>
-    <div v-if="user">
-        <p>This is the homepage</p>
-        <strong> {{ user }}</strong>
+    <div>
+        Holler
     </div>
 </template>
 <script>
     import axios from 'axios'
-
     export default {
+
         created() {
+          if (parseInt(this.project_id) > 0){
+              window.Echo.channel('dashboard.' + this.project_id);
+          }
         },
         data() {
             return {
-                user: null,
+                project_id: this.$route.query.project
             }
         }
     }

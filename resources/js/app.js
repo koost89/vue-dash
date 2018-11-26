@@ -18,7 +18,7 @@ if (window.io != undefined) {
         broadcaster: 'socket.io',
         host: window.location.hostname + ':6001',
     });
-    window.Echo.channel('dashboard');
+    // window.Echo.channel('dashboard');
 }
 
 

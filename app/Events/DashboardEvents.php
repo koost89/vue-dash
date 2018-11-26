@@ -1,6 +1,7 @@
 <?php
-namespace App\Api\Events;
+namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -18,6 +19,6 @@ abstract class DashboardEvents implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('dashboard');
+        return new Channel('dashboard.'.'1');
     }
 }
