@@ -12,6 +12,7 @@
 */
 
 use App\User;
+use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('dashboard', function() {
 //    $customer = Customer::find($customer_id);

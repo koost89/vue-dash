@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const glob = require('glob');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +12,22 @@ const mix = require('laravel-mix');
  |
  */
 
+let sassVariables = glob.sync('resources/sass/variables/*.scss');
+let sassFiles = glob.sync('resources/sass/*.scss');
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   // .sass(sassVariables, 'public/css')
+   // .sass(sassFiles, 'public/css')
+    .browserSync({
+        proxy: 'vue-dash.kevin'
+    })
+    .version()
+
+    // sassVariables.forEach(filename => {
+    //     console.log(filename);
+    //     mix.sass(filename, 'public/css');
+    // });
+    //
+    // sassFiles.forEach(filename => {
+    //     console.log(filename);
+    //     mix.sass(filename, 'public/css');
+    // });

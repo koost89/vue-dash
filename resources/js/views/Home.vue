@@ -1,6 +1,6 @@
 <template>
     <div>
-        Holler
+        Holler2
     </div>
 </template>
 <script>
@@ -8,13 +8,13 @@
     export default {
 
         created() {
-          if (parseInt(this.project_id) > 0){
-              window.Echo.channel('dashboard.' + this.project_id);
-          }
+          // if (parseInt(this.project_id) > 0){
+          //     window.Echo.channel('dashboard.' + this.project_id);
+          // }
         },
         data() {
             return {
-                project_id: this.$route.query.project
+                // project_id: this.$route.query.project
             }
         }
     }

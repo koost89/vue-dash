@@ -11,9 +11,6 @@
     </div>
 </template>
 <script>
-    import axios from 'axios'
-    import Echo from 'laravel-echo'
-
     export default {
         data() {
             return {}

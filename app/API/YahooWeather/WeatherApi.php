@@ -34,6 +34,6 @@ class WeatherApi
     {
         $response = $this->client->get($this->baseUrl . $query . $this->baseEndUrl);
         $data = $response->getBody()->getContents();
-        dd($data);
+        return $data;
     }
 }

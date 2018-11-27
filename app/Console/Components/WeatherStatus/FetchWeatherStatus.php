@@ -12,15 +12,15 @@ use App\Events\Weather\WeatherFetched;
 use Illuminate\Console\Command;
 
 class FetchWeatherStatus extends Command {
+
     protected $signature = 'dashboard:fetch-weather-status';
     protected $description = 'Fetch the weather from Yahoo';
 
-    private $weather;
     public function handle()
     {
-        $this->weather = 'LOL';
         $weather = new WeatherApi();
-        $a = $weather->getCurrentCondition('Amersfoort, NL');
-        event(new WeatherFetched($this->weather));
+        $weather = $weather->getCurrentCondition('Amersfoort, NL');
+//        dd($weather);
+        event(new WeatherFetched($weather));
     }
 }

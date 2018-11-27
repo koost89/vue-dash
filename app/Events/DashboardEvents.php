@@ -19,6 +19,6 @@ abstract class DashboardEvents implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('dashboard.'.'1');
+        return new Channel('dashboard');
     }
 }
