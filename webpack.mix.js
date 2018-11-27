@@ -1,6 +1,4 @@
 const mix = require('laravel-mix');
-const glob = require('glob');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,11 +10,19 @@ const glob = require('glob');
  |
  */
 
-let sassVariables = glob.sync('resources/sass/variables/*.scss');
-let sassFiles = glob.sync('resources/sass/*.scss');
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.scss/,
+                loader: 'import-glob-loader'
+            }
+        ]
+    }
+});
+
 mix.js('resources/js/app.js', 'public/js')
-   // .sass(sassVariables, 'public/css')
-   // .sass(sassFiles, 'public/css')
+   .sass('resources/sass/app.scss', 'public/css')
     .browserSync({
         proxy: 'vue-dash.kevin'
     })
