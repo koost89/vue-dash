@@ -5,17 +5,25 @@
 </template>
 <script>
     import axios from 'axios'
+    import echo from '../mixins/echo'
     export default {
 
         created() {
-          // if (parseInt(this.project_id) > 0){
-          //     window.Echo.channel('dashboard.' + this.project_id);
-          // }
         },
+        mixins: [echo],
         data() {
             return {
-                // project_id: this.$route.query.project
+                weather: [],
             }
+        },
+        methods: {
+            getEventHandlers() {
+                return {
+                    'Weather\\WeatherFetched': response => {
+                        this.weather = response.weather;
+                    },
+                };
+            },
         }
     }
 </script>

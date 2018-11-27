@@ -5,11 +5,9 @@ import { forIn } from 'lodash';
 
 export default {
     created() {
-        let _self = this;
         forIn(this.getEventHandlers(), (handler, eventName) => {
-            window.Echo.private('billing')
-                .listen(`\\App\\Api\\Events\\${eventName}`, response => handler(response))
-
+            window.Echo.channel('dashboard')
+                .listen(`\\App\\Events\\${eventName}`, response => handler(response))
         });
     },
 };

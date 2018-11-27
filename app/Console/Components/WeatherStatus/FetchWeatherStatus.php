@@ -19,8 +19,10 @@ class FetchWeatherStatus extends Command {
     public function handle()
     {
         $weather = new WeatherApi();
-        $weather = $weather->getCurrentCondition('Amersfoort, NL');
-//        dd($weather);
+        $weatherConditions = $weather->request();
+//        foreach($weatherConditions as $condition){
+//          Save in DB so we can pull them on page load instead of querying the KNMI API
+//        }
         event(new WeatherFetched($weather));
     }
 }
