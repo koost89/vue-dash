@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Components\WebsiteStatus\FetchWeatherStatus::class,
+        Components\WebsiteStatus\FetchEnergyStatus::class,
     ];
 
     /**

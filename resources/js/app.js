@@ -1,12 +1,15 @@
 import Vue from 'vue'
-import axios from 'axios'
 import App from './views/App'
 import router from './router'
 import Echo from 'laravel-echo'
 
-window.io = require('socket.io-client');
+if (process.env.MIX_APP_ENV === 'production') {
+    Vue.config.devtools = false;
+    Vue.config.debug = false;
+    Vue.config.silent = true;
+}
 
-Vue.prototype.$http = axios.create();
+window.io = require('socket.io-client');
 
 // const token = localStorage.getItem('token')
 // if (token) {
@@ -18,9 +21,7 @@ if (window.io != undefined) {
         broadcaster: 'socket.io',
         host: window.location.hostname + ':6001',
     });
-    window.Echo.channel('dashboard');
 }
-
 const app = new Vue({
     el: '#app',
     components: { App },

@@ -37,23 +37,36 @@ class WeatherApi
         $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (curl_errno($ch) == 0 AND $http === 226) {
 
+            //remove nbsp
+            $data = str_replace("&nbsp;", "", $data);
+
             $dom = new DOMDocument();
             $dom->loadHTML($data);
+            $dom->preserveWhiteSpace = false;
 
             $tableHeaders = $dom->getElementsByTagName('th');
             $tableDetails = $dom->getElementsByTagName('td');
 
+            $directionCheck = true;
             //#Get header name of the table
             foreach ($tableHeaders as $tableHeader) {
+
+                // we have Wind (direction) AND Wind(m/s) and we need to seperate them
+                // The first one is direction so we rename the header for the array key so that they do not overwrite eachother.
+                if(strtolower(trim($tableHeader->textContent)) === 'wind' && $directionCheck){
+                    $tableHeader->textContent = 'wind_direction';
+                    $directionCheck = false;
+                }
                 $header = explode('(',strtolower(trim($tableHeader->textContent)));
                 $tableHeaderList[] = $header[0];
             }
 
+
             //#Get row data/detail table without header name as key
             $i = 0;
             $j = 0;
-
             foreach ($tableDetails as $tableDetail) {
+
                 $tableDetailList[$j][] = trim($tableDetail->textContent);
                 $i = $i + 1;
                 $j = $i % count($tableHeaderList) === 0 ? $j + 1 : $j;
@@ -65,6 +78,7 @@ class WeatherApi
                     $totalList[$i][$tableHeaderList[$j]] = $tableDetailList[$i][$j];
                 }
             }
+//            dd($totalList);
             return $totalList;
         }
     }
