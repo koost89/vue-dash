@@ -20,7 +20,7 @@ class FetchEnergyStatus extends Command {
     public function handle()
     {
         $energyApi = new EnergyApi();
-        $contents = $energyApi->gatherEnergyData();
+        $contents = $energyApi->getEnergyData();
         foreach($contents as $project_id => $content){
             event(new EnergyDataFetched($content, $project_id));
         }
